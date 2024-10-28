@@ -30,7 +30,10 @@ jobs:
       - name: Run npm Install
         run: |
              npm i -g corepack
-             npm install             
+             npm instal
+
+      - name: Grant permission to Gradlew
+        run: chmod +x ./android/gradlew
 
       - name: Build application
         run: |
