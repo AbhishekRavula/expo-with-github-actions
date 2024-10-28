@@ -3,7 +3,7 @@ name: "Build Android app"
 on:
   workflow_dispatch:
     branches: [main]
-    # can add push and pull_request here 
+    # can add push and pull_request here
 
 jobs:
   build:
@@ -31,12 +31,14 @@ jobs:
         run: |
              npm i -g corepack
              npm install             
+
       - name: Build application
         run: |
              cd ./android
-             ./gradlew assembleDebug             
+             ./gradlew assembleDebug
+
       - name: Upload application
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3  # Updated to v3
         with:
           name: app
           path: ./android/app/build/outputs/apk/debug/app-debug.apk
