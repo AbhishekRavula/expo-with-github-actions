@@ -30,18 +30,23 @@ jobs:
       - name: Run npm Install
         run: |
              npm i -g corepack
-             npm instal
+             npm install
 
       - name: Grant permission to Gradlew
         run: chmod +x ./android/gradlew
 
+      - name: Set Gradle options for memory
+        run: echo "org.gradle.jvmargs=-Xmx4096m -Dfile.encoding=UTF-8" >> ./android/gradle.properties  # Set Gradle memory options
+
       - name: Build application
+        env:
+          GRADLE_OPTS: "-Xmx4096m"
         run: |
              cd ./android
              ./gradlew assembleDebug
 
       - name: Upload application
-        uses: actions/upload-artifact@v3  # Updated to v3
+        uses: actions/upload-artifact@v3
         with:
           name: app
           path: ./android/app/build/outputs/apk/debug/app-debug.apk
